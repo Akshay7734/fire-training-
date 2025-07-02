@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fire Extinguisher Training</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      text-align: center;
+    }
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.7);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      animation: fadeIn 2s ease-in-out;
+    }
+    p {
+      font-size: 1.2rem;
+      animation: fadeIn 2.5s ease-in-out;
+    }
+    iframe.video-frame {
+      width: 90%;
+      max-width: 720px;
+      height: 405px;
+      margin-top: 30px;
+      border: 5px solid #00ffcc;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,255,255,0.4);
+      animation: zoomIn 1s ease-in-out;
+    }
+    #form-container {
+      display: none;
+      margin-top: 40px;
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1>Fire Extinguisher Training</h1>
+    <p>Please watch the full video before proceeding to the form.</p>
+
+    <iframe id="trainingVideo" class="video-frame" src="https://www.youtube.com/embed/PQV71INDaqY?enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+    <div id="form-container">
+      <h2>Submit Your Details</h2>
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfeHFM2ZHExMP9CzC9frBXUvdudbh0oAWTeiHOSJUIxLU_Q0g/viewform?embedded=true" width="90%" height="700" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+  </div>
+
+  <script>
+    // Wait for YouTube Iframe API to load
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('trainingVideo', {
+        events: {
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+
+    function onPlayerStateChange(event) {
+      if (event.data === YT.PlayerState.ENDED) {
+        document.getElementById('form-container').style.display = 'block';
+        document.getElementById('form-container').scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  </script>
+</body>
+</html>
